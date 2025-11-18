@@ -15,102 +15,101 @@ public class Programa {
 
   public static void main(String[] args) {
 
-    Scanner in = new Scanner(System.in);
-
-    // Services
-    ClienteService cs = new ClienteService();
-    AnimalService as = new AnimalService();
-    CompraService compraService = new CompraService();
-
-    // Lista para produtos
-    ArrayList<Produto> produtos = new ArrayList<>();
-
-    // Cadastro automático obrigatório
-    cadastrarAutomatico(cs, as, produtos);
-
-    int opc;
-
-    do {
-      System.out.println("\n==== PETSHOP ====");
-      System.out.println("1 - Cadastrar Cliente");
-      System.out.println("2 - Cadastrar Animal");
-      System.out.println("3 - Listar Clientes (Ordenado)");
-      System.out.println("4 - Listar Animais");
-      System.out.println("5 - Remover Cliente");
-      System.out.println("6 - Buscar Animal");
-      System.out.println("7 - Buscar Cliente");
-      System.out.println("8 - Realizar Compra");
-      System.out.println("9 - Listar Compras");
-      System.out.println("10 - Sair");
-      System.out.print("Opção: ");
-
-      opc = in.nextInt();
-      in.nextLine();
-
-      switch (opc) {
-
-        case 1 -> cs.cadastrar(in);
-
-        case 2 -> as.cadastrar(in);
-
-        case 3 -> cs.listarOrdenado();
-
-        case 4 -> as.listar();
-
-        case 5 -> {
-          System.out.print("CPF do cliente: ");
-          String cpf = in.nextLine();
-          cs.remover(cpf, in);
-        }
-
-        case 6 -> {
-          System.out.print("Nome do animal: ");
-          String nome = in.nextLine();
-          var animal = as.buscar(nome);
-          if (animal != null)
-            System.out.println(animal);
-          else
-            System.out.println("Animal não encontrado.");
-        }
-
-        case 7 -> {
-          System.out.println("Buscar Cliente por:");
-          System.out.println("1 - Nome");
-          System.out.println("2 - CPF");
-          int tipo = in.nextInt();
-          in.nextLine();
-
-          if (tipo == 1) {
-            System.out.print("Nome: ");
-            String nome = in.nextLine();
-            var cliente = cs.buscarPorNome(nome);
-            if (cliente != null)
-              System.out.println(cliente);
-            else
-              System.out.println("Cliente não encontrado.");
-          } else {
-            System.out.print("CPF: ");
-            String cpfBusca = in.nextLine();
-            var cliente = cs.buscarPorCpf(cpfBusca);
-            if (cliente != null)
-              System.out.println(cliente);
-            else
-              System.out.println("Cliente não encontrado.");
-          }
-        }
-
-        case 8 -> compraService.realizarCompra(in, cs.getLista(), produtos);
-
-        case 9 -> compraService.listarCompras();
-
-        case 10 -> System.out.println("Saindo...");
-
-        default -> System.out.println("Opção inválida.");
+      // Services
+      try (Scanner in = new Scanner(System.in)) {
+          // Services
+          ClienteService cs = new ClienteService();
+          AnimalService as = new AnimalService();
+          CompraService compraService = new CompraService();
+          
+          // Lista para produtos
+          ArrayList<Produto> produtos = new ArrayList<>();
+          
+          // Cadastro automático obrigatório
+          cadastrarAutomatico(cs, as, produtos);
+          
+          int opc;
+          
+          do {
+              System.out.println("\n==== PETSHOP ====");
+              System.out.println("1 - Cadastrar Cliente");
+              System.out.println("2 - Cadastrar Animal");
+              System.out.println("3 - Listar Clientes (Ordenado)");
+              System.out.println("4 - Listar Animais");
+              System.out.println("5 - Remover Cliente");
+              System.out.println("6 - Buscar Animal");
+              System.out.println("7 - Buscar Cliente");
+              System.out.println("8 - Realizar Compra");
+              System.out.println("9 - Listar Compras");
+              System.out.println("10 - Sair");
+              System.out.print("Opção: ");
+              
+              opc = in.nextInt();
+              in.nextLine();
+              
+              switch (opc) {
+                  
+                  case 1 -> cs.cadastrar(in);
+                  
+                  case 2 -> as.cadastrar(in);
+                  
+                  case 3 -> cs.listarOrdenado();
+                  
+                  case 4 -> as.listar();
+                  
+                  case 5 -> {
+                      System.out.print("CPF do cliente: ");
+                      String cpf = in.nextLine();
+                      cs.remover(cpf, in);
+                  }
+                  
+                  case 6 -> {
+                      System.out.print("Nome do animal: ");
+                      String nome = in.nextLine();
+                      var animal = as.buscar(nome);
+                      if (animal != null)
+                          System.out.println(animal);
+                      else
+                          System.out.println("Animal não encontrado.");
+                  }
+                  
+                  case 7 -> {
+                      System.out.println("Buscar Cliente por:");
+                      System.out.println("1 - Nome");
+                      System.out.println("2 - CPF");
+                      int tipo = in.nextInt();
+                      in.nextLine();
+                      
+                      if (tipo == 1) {
+                          System.out.print("Nome: ");
+                          String nome = in.nextLine();
+                          var cliente = cs.buscarPorNome(nome);
+                          if (cliente != null)
+                              System.out.println(cliente);
+                          else
+                              System.out.println("Cliente não encontrado.");
+                      } else {
+                          System.out.print("CPF: ");
+                          String cpfBusca = in.nextLine();
+                          var cliente = cs.buscarPorCpf(cpfBusca);
+                          if (cliente != null)
+                              System.out.println(cliente);
+                          else
+                              System.out.println("Cliente não encontrado.");
+                      }
+                  }
+                  
+                  case 8 -> compraService.realizarCompra(in, cs.getLista(), produtos);
+                  
+                  case 9 -> compraService.listarCompras();
+                  
+                  case 10 -> System.out.println("Saindo...");
+                  
+                  default -> System.out.println("Opção inválida.");
+              }
+              
+          } while (opc != 10);
       }
-
-    } while (opc != 10);
-
-    in.close();
   }
 
   // Cadastro Automático — obrigatório pela P1
