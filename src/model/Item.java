@@ -1,8 +1,8 @@
 package model;
 
 public class Item {
-  private String nome;
-  private double preco;
+  private final String nome;
+  private final double preco;
 
   public Item(String nome, double preco) {
     this.nome = nome;

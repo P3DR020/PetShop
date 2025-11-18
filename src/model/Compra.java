@@ -1,9 +1,9 @@
 package model;
 
 public class Compra {
-  private Cliente cliente;
-  private Produto produto;
-  private FormaPagamento pagamento;
+  private final Cliente cliente;
+  private final Produto produto;
+  private final FormaPagamento pagamento;
 
   public Compra(Cliente c, Produto p, FormaPagamento f) {
     this.cliente = c;

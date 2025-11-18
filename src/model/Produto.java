@@ -1,7 +1,7 @@
 package model;
 
 public class Produto extends Item {
-  private int estoque;
+  private final int estoque;
 
   public Produto(String nome, double preco, int estoque) {
     super(nome, preco);

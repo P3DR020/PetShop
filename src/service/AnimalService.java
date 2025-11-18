@@ -2,14 +2,13 @@ package service;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import model.Animal;
 import model.Cachorro;
 import model.Gato;
 
 public class AnimalService {
 
-  private ArrayList<Animal> lista = new ArrayList<>();
+  private final ArrayList<Animal> lista = new ArrayList<>();
 
   public void cadastrar(Scanner in) {
     System.out.println("1 - Cachorro | 2 - Gato");

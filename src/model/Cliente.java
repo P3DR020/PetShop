@@ -1,9 +1,9 @@
 package model;
 
 public class Cliente extends Pessoa {
-  private String cpf;
-  private String telefone;
-  private String endereco;
+  private final String cpf;
+  private final String telefone;
+  private final String endereco;
 
   public Cliente(String nome, int idade, String cpf, String telefone, String endereco) {
     super(nome, idade);

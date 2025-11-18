@@ -1,7 +1,7 @@
 package model;
 
 public class Gato extends Animal {
-  private String cor;
+  private final String cor;
 
   public Gato(String nome, int ano, String sexo, String cor) {
     super(nome, ano, sexo);

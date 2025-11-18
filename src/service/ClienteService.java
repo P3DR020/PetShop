@@ -7,7 +7,7 @@ import model.Cliente;
 
 public class ClienteService {
 
-  private ArrayList<Cliente> lista = new ArrayList<>();
+  private final ArrayList<Cliente> lista = new ArrayList<>();
 
   public void cadastrar(Scanner in) {
     System.out.print("Nome: ");
