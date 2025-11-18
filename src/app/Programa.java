@@ -25,7 +25,7 @@ public class Programa {
     // Lista para produtos
     ArrayList<Produto> produtos = new ArrayList<>();
 
-    // 🔥 Cadastro automático obrigatório
+    // Cadastro automático obrigatório
     cadastrarAutomatico(cs, as, produtos);
 
     int opc;
