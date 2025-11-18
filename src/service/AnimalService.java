@@ -1,7 +1,7 @@
 package service;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.ArrayList;  // ou os imports específicos
+import java.util.Scanner; // ou os imports específicos
 import model.Animal;
 import model.Cachorro;
 import model.Gato;

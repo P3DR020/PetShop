@@ -1,7 +1,7 @@
 package service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.ArrayList;  // ou os imports específicos
+import java.util.Comparator; // ou os imports específicos
 import java.util.Scanner;
 import model.Cliente;
 
