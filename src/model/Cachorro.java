@@ -1,16 +1,20 @@
 package model;
 
 public class Cachorro extends Animal {
+
   private final String raca;
 
-  public Cachorro(String nome, int ano, String sexo, String raca) {
-    super(nome, ano, sexo);
+  public Cachorro(String nome, int ano, String sexo, String raca, Cliente dono) {
+    super(nome, ano, sexo, dono);
     this.raca = raca;
   }
 
   @Override
   public String toString() {
-    return "Cachorro - Nome: " + nome + " | Ano: " + anoNascimento +
-        " | Sexo: " + sexo + " | Raça: " + raca;
+    return "Cachorro: " + nome +
+        " | Raça: " + raca +
+        " | Ano: " + anoNascimento +
+        " | Sexo: " + sexo +
+        " | Dono: " + dono.getNome();
   }
 }
