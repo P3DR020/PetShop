@@ -1,43 +1,39 @@
 package service;
 
-import java.util.ArrayList;  // ou os imports específicos
-import java.util.Comparator; // ou os imports específicos
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Scanner;
+import model.Animal;
 import model.Cliente;
 
 public class ClienteService {
 
   private final ArrayList<Cliente> lista = new ArrayList<>();
 
+  // Cadastrar cliente
   public void cadastrar(Scanner in) {
+
     System.out.print("Nome: ");
     String nome = in.nextLine();
+
     System.out.print("Idade: ");
     int idade = in.nextInt();
     in.nextLine();
+
     System.out.print("CPF: ");
     String cpf = in.nextLine();
+
     System.out.print("Telefone: ");
-    String tel = in.nextLine();
+    String telefone = in.nextLine();
+
     System.out.print("Endereço: ");
-    String end = in.nextLine();
+    String endereco = in.nextLine();
 
-    lista.add(new Cliente(nome, idade, cpf, tel, end));
-    System.out.println("Cliente cadastrado!");
+    lista.add(new Cliente(nome, idade, cpf, telefone, endereco));
+    System.out.println("Cliente cadastrado com sucesso!");
   }
 
-  public void listarOrdenado() {
-    lista.sort(Comparator.comparing(Cliente::getNome));
-    lista.forEach(System.out::println);
-  }
-
-  public Cliente buscar(String cpf) {
-    return lista.stream()
-        .filter(c -> c.getCpf().equals(cpf))
-        .findFirst()
-        .orElse(null);
-  }
-
+  // Buscar cliente por CPF
   public Cliente buscarPorCpf(String cpf) {
     return lista.stream()
         .filter(c -> c.getCpf().equalsIgnoreCase(cpf))
@@ -45,6 +41,7 @@ public class ClienteService {
         .orElse(null);
   }
 
+  // Buscar cliente por Nome
   public Cliente buscarPorNome(String nome) {
     return lista.stream()
         .filter(c -> c.getNome().equalsIgnoreCase(nome))
@@ -52,22 +49,81 @@ public class ClienteService {
         .orElse(null);
   }
 
+  // Listar clientes ordenados + seus animais
+  public void listarOrdenado(ArrayList<Animal> animais) {
+
+    if (lista.isEmpty()) {
+      System.out.println("Nenhum cliente cadastrado.");
+      return;
+    }
+
+    lista.sort(Comparator.comparing(Cliente::getNome));
+
+    for (Cliente c : lista) {
+
+      System.out.println("\n-------------------------------------------");
+      System.out.println(c);
+      System.out.println("Animais deste cliente:");
+
+      boolean temAnimais = false;
+
+      for (Animal a : animais) {
+        if (a.getDono().getCpf().equals(c.getCpf())) {
+          System.out.println(" - " + a.getNome() +
+              " (" + a.getClass().getSimpleName() + ")");
+          temAnimais = true;
+        }
+      }
+
+      if (!temAnimais) {
+        System.out.println(" - Nenhum animal cadastrado");
+      }
+    }
+
+    System.out.println("-------------------------------------------");
+  }
+
+  // Remover cliente
   public void remover(String cpf, Scanner in) {
-    Cliente c = buscar(cpf);
+
+    Cliente c = buscarPorCpf(cpf);
+
     if (c == null) {
       System.out.println("Cliente não encontrado.");
       return;
     }
 
-    System.out.print("Confirmar remoção? (s/n): ");
-    String op = in.nextLine();
+    System.out.print("Deseja realmente remover? (s/n): ");
+    String resp = in.nextLine();
 
-    if (op.equalsIgnoreCase("s")) {
+    if (resp.equalsIgnoreCase("s")) {
       lista.remove(c);
-      System.out.println("Cliente removido.");
+      System.out.println("Cliente removido com sucesso!");
+    } else {
+      System.out.println("Remoção cancelada.");
     }
   }
 
+  // Listar todos os animais de um cliente
+  public void listarAnimaisDoCliente(Cliente cliente, ArrayList<Animal> animais) {
+
+    System.out.println("\n=== ANIMAIS DO CLIENTE: " + cliente.getNome() + " ===");
+
+    boolean achou = false;
+
+    for (Animal a : animais) {
+      if (a.getDono().getCpf().equals(cliente.getCpf())) {
+        System.out.println(a);
+        achou = true;
+      }
+    }
+
+    if (!achou) {
+      System.out.println("Este cliente não possui animais cadastrados.");
+    }
+  }
+
+  // Acessar lista
   public ArrayList<Cliente> getLista() {
     return lista;
   }
