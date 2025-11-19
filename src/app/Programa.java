@@ -25,7 +25,7 @@ public class Programa {
       // Lista para produtos
       ArrayList<Produto> produtos = new ArrayList<>();
 
-      // 🔥 Cadastro automático obrigatório P1
+      // Cadastro automático obrigatório P1
       cadastrarAutomatico(cs, as, produtos);
 
       int opc;
@@ -125,7 +125,7 @@ public class Programa {
     }
   }
 
-  // 🔥 Cadastro Automático — obrigatório pela P1
+  // Cadastro Automático — obrigatório pela P1
   private static void cadastrarAutomatico(ClienteService cs, AnimalService as, ArrayList<Produto> produtos) {
 
     // 2 CLIENTES
