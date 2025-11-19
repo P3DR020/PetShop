@@ -31,7 +31,7 @@ public class Programa {
       int opc;
 
       do {
-        System.out.println("\n==== PETSHOP ====");
+        System.out.println("\n============== PETSHOP ==============");
         System.out.println("1 - Cadastrar Cliente");
         System.out.println("2 - Cadastrar Animal ");
         System.out.println("3 - Listar Clientes (com Animais)");
@@ -43,7 +43,8 @@ public class Programa {
         System.out.println("9 - Listar Compras");
         System.out.println("10 - Listar Animais de um Cliente");
         System.out.println("11 - Sair");
-        System.out.print("Opção: ");
+        System.out.println("=====================================");
+        System.out.print("\n| Opção: ");
 
         opc = in.nextInt();
         in.nextLine();
