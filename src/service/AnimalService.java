@@ -11,7 +11,7 @@ public class AnimalService {
 
   private final ArrayList<Animal> lista = new ArrayList<>();
 
-  public void cadastrar(Scanner in, ArrayList<Cliente> clientes) {
+  public void cadastrar(Scanner sc, ArrayList<Cliente> clientes) {
 
     if (clientes.isEmpty()) {
       System.out.println("Erro: não há clientes cadastrados!");
@@ -27,8 +27,8 @@ public class AnimalService {
     }
 
     System.out.print("Dono (número): ");
-    int indice = in.nextInt() - 1;
-    in.nextLine();
+    int indice = sc.nextInt() - 1;
+    sc.nextLine();
 
     if (indice < 0 || indice >= clientes.size()) {
       System.out.println("Cliente inválido.");
@@ -40,26 +40,26 @@ public class AnimalService {
     System.out.println("1 - Cachorro");
     System.out.println("2 - Gato");
     System.out.print("Escolha: ");
-    int tipo = in.nextInt();
-    in.nextLine();
+    int tipo = sc.nextInt();
+    sc.nextLine();
 
     System.out.print("Nome: ");
-    String nome = in.nextLine();
+    String nome = sc.nextLine();
 
     System.out.print("Ano de nascimento: ");
-    int ano = in.nextInt();
-    in.nextLine();
+    int ano = sc.nextInt();
+    sc.nextLine();
 
     System.out.print("Sexo: ");
-    String sexo = in.nextLine();
+    String sexo = sc.nextLine();
 
     if (tipo == 1) {
       System.out.print("Raça: ");
-      String raca = in.nextLine();
+      String raca = sc.nextLine();
       lista.add(new Cachorro(nome, ano, sexo, raca, dono));
     } else {
       System.out.print("Cor: ");
-      String cor = in.nextLine();
+      String cor = sc.nextLine();
       lista.add(new Gato(nome, ano, sexo, cor, dono));
     }
 

@@ -11,7 +11,7 @@ public class CompraService {
 
   private final ArrayList<Compra> compras = new ArrayList<>();
 
-  public void realizarCompra(Scanner in, ArrayList<Cliente> clientes, ArrayList<Produto> produtos) {
+  public void realizarCompra(Scanner sc, ArrayList<Cliente> clientes, ArrayList<Produto> produtos) {
 
     System.out.println("\n=== REALIZAR COMPRA ===");
 
@@ -22,8 +22,8 @@ public class CompraService {
     }
 
     System.out.print("Escolha o cliente: ");
-    int clienteIndex = in.nextInt() - 1;
-    in.nextLine();
+    int clienteIndex = sc.nextInt() - 1;
+    sc.nextLine();
 
     if (clienteIndex < 0 || clienteIndex >= clientes.size()) {
       System.out.println("Cliente inválido!");
@@ -39,8 +39,8 @@ public class CompraService {
     }
 
     System.out.print("Escolha o produto: ");
-    int prodIndex = in.nextInt() - 1;
-    in.nextLine();
+    int prodIndex = sc.nextInt() - 1;
+    sc.nextLine();
 
     if (prodIndex < 0 || prodIndex >= produtos.size()) {
       System.out.println("Produto inválido!");
@@ -55,8 +55,8 @@ public class CompraService {
     System.out.println("2 - Cartão");
     System.out.println("3 - Pix");
     System.out.print("Escolha: ");
-    int forma = in.nextInt();
-    in.nextLine();
+    int forma = sc.nextInt();
+    sc.nextLine();
 
     FormaPagamento pagamento;
 

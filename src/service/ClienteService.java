@@ -11,23 +11,23 @@ public class ClienteService {
   private final ArrayList<Cliente> lista = new ArrayList<>();
 
   // Cadastrar cliente
-  public void cadastrar(Scanner in) {
+  public void cadastrar(Scanner sc) {
 
     System.out.print("Nome: ");
-    String nome = in.nextLine();
+    String nome = sc.nextLine();
 
     System.out.print("Idade: ");
-    int idade = in.nextInt();
-    in.nextLine();
+    int idade = sc.nextInt();
+    sc.nextLine();
 
     System.out.print("CPF: ");
-    String cpf = in.nextLine();
+    String cpf = sc.nextLine();
 
     System.out.print("Telefone: ");
-    String telefone = in.nextLine();
+    String telefone = sc.nextLine();
 
     System.out.print("Endereço: ");
-    String endereco = in.nextLine();
+    String endereco = sc.nextLine();
 
     lista.add(new Cliente(nome, idade, cpf, telefone, endereco));
     System.out.println("Cliente cadastrado com sucesso!");
@@ -84,7 +84,7 @@ public class ClienteService {
   }
 
   // Remover cliente
-  public void remover(String cpf, Scanner in) {
+  public void remover(String cpf, Scanner sc) {
 
     Cliente c = buscarPorCpf(cpf);
 
@@ -94,7 +94,7 @@ public class ClienteService {
     }
 
     System.out.print("Deseja realmente remover? (s/n): ");
-    String resp = in.nextLine();
+    String resp = sc.nextLine();
 
     if (resp.equalsIgnoreCase("s")) {
       lista.remove(c);

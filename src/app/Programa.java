@@ -16,7 +16,7 @@ public class Programa {
   public static void main(String[] args) {
 
     // Services
-    try (Scanner in = new Scanner(System.in)) {
+    try (Scanner sc = new Scanner(System.in)) {
       // Services
       ClienteService cs = new ClienteService();
       AnimalService as = new AnimalService();
@@ -46,14 +46,14 @@ public class Programa {
         System.out.println("=====================================");
         System.out.print("\n| Opção: ");
 
-        opc = in.nextInt();
-        in.nextLine();
+        opc = sc.nextInt();
+        sc.nextLine();
 
         switch (opc) {
 
-          case 1 -> cs.cadastrar(in);
+          case 1 -> cs.cadastrar(sc);
 
-          case 2 -> as.cadastrar(in, cs.getLista());
+          case 2 -> as.cadastrar(sc, cs.getLista());
 
           case 3 -> cs.listarOrdenado(as.getLista());
 
@@ -61,13 +61,13 @@ public class Programa {
 
           case 5 -> {
             System.out.print("CPF do cliente: ");
-            String cpf = in.nextLine();
-            cs.remover(cpf, in);
+            String cpf = sc.nextLine();
+            cs.remover(cpf, sc);
           }
 
           case 6 -> {
             System.out.print("Nome do animal: ");
-            String nome = in.nextLine();
+            String nome = sc.nextLine();
             var animal = as.buscar(nome);
             if (animal != null)
               System.out.println(animal);
@@ -79,12 +79,12 @@ public class Programa {
             System.out.println("Buscar Cliente por:");
             System.out.println("1 - Nome");
             System.out.println("2 - CPF");
-            int tipo = in.nextInt();
-            in.nextLine();
+            int tipo = sc.nextInt();
+            sc.nextLine();
 
             if (tipo == 1) {
               System.out.print("Nome: ");
-              String nome = in.nextLine();
+              String nome = sc.nextLine();
               var cliente = cs.buscarPorNome(nome);
               if (cliente != null)
                 System.out.println(cliente);
@@ -92,7 +92,7 @@ public class Programa {
                 System.out.println("Cliente não encontrado.");
             } else {
               System.out.print("CPF: ");
-              String cpfBusca = in.nextLine();
+              String cpfBusca = sc.nextLine();
               var cliente = cs.buscarPorCpf(cpfBusca);
               if (cliente != null)
                 System.out.println(cliente);
@@ -101,13 +101,13 @@ public class Programa {
             }
           }
 
-          case 8 -> compraService.realizarCompra(in, cs.getLista(), produtos);
+          case 8 -> compraService.realizarCompra(sc, cs.getLista(), produtos);
 
           case 9 -> compraService.listarCompras();
 
           case 10 -> {
             System.out.print("Digite o CPF do cliente: ");
-            String cpf = in.nextLine();
+            String cpf = sc.nextLine();
             Cliente cliente = cs.buscarPorCpf(cpf);
 
             if (cliente != null) {
