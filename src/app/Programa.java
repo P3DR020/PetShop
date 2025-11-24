@@ -31,18 +31,18 @@ public class Programa {
       int opc;
 
       do {
-        System.out.println("\n============== PETSHOP ==============");
-        System.out.println("1 - Cadastrar Cliente");
-        System.out.println("2 - Cadastrar Animal ");
-        System.out.println("3 - Listar Clientes (com Animais)");
-        System.out.println("4 - Listar Animais");
-        System.out.println("5 - Remover Cliente");
-        System.out.println("6 - Buscar Animal por Nome");
-        System.out.println("7 - Buscar Cliente (Nome ou CPF)");
-        System.out.println("8 - Realizar Compra");
-        System.out.println("9 - Listar Compras");
-        System.out.println("10 - Listar Animais de um Cliente");
-        System.out.println("11 - Sair");
+        System.out.println("\n============== PETSHOP ==============\n");
+        System.out.println("1 | Cadastrar Cliente");
+        System.out.println("2 | Cadastrar Animal ");
+        System.out.println("3 | Listar Clientes (com Animais)");
+        System.out.println("4 | Listar Animais");
+        System.out.println("5 | Remover Cliente");
+        System.out.println("6 | Buscar Animal por Nome");
+        System.out.println("7 | Buscar Cliente (Nome ou CPF)");
+        System.out.println("8 | Realizar Compra");
+        System.out.println("9 | Listar Compras");
+        System.out.println("10 | Listar Animais de um Cliente");
+        System.out.println("11 | Sair\n");
         System.out.println("=====================================");
         System.out.print("\n| Opção: ");
 
@@ -77,8 +77,8 @@ public class Programa {
 
           case 7 -> {
             System.out.println("Buscar Cliente por:");
-            System.out.println("1 - Nome");
-            System.out.println("2 - CPF");
+            System.out.println("1 | Nome");
+            System.out.println("2 | CPF");
             int tipo = sc.nextInt();
             sc.nextLine();
 
