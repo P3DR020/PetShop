@@ -3,14 +3,18 @@ package service;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
+
 import model.Animal;
 import model.Cliente;
 
 public class ClienteService {
 
+  // Lista onde todos os clientes cadastrados serão armazenados
   private final ArrayList<Cliente> lista = new ArrayList<>();
 
-  // Cadastrar cliente
+  /**
+   * Método responsável por cadastrar um cliente novo no sistema.
+   */
   public void cadastrar(Scanner sc) {
 
     System.out.print("Nome: ");
@@ -18,7 +22,7 @@ public class ClienteService {
 
     System.out.print("Idade: ");
     int idade = sc.nextInt();
-    sc.nextLine();
+    sc.nextLine(); // consome ENTER
 
     System.out.print("CPF: ");
     String cpf = sc.nextLine();
@@ -29,11 +33,16 @@ public class ClienteService {
     System.out.print("Endereço: ");
     String endereco = sc.nextLine();
 
+    // Adicionando o novo cliente à lista
     lista.add(new Cliente(nome, idade, cpf, telefone, endereco));
+
     System.out.println("Cliente cadastrado com sucesso!");
   }
 
-  // Buscar cliente por CPF
+  /**
+   * Busca um cliente usando o CPF (atributo exclusivo).
+   * Retorna o cliente encontrado ou null.
+   */
   public Cliente buscarPorCpf(String cpf) {
     return lista.stream()
         .filter(c -> c.getCpf().equalsIgnoreCase(cpf))
@@ -41,7 +50,10 @@ public class ClienteService {
         .orElse(null);
   }
 
-  // Buscar cliente por Nome
+  /**
+   * Busca um cliente pelo nome.
+   * Se houver nomes repetidos, retorna o primeiro da lista.
+   */
   public Cliente buscarPorNome(String nome) {
     return lista.stream()
         .filter(c -> c.getNome().equalsIgnoreCase(nome))
@@ -49,7 +61,10 @@ public class ClienteService {
         .orElse(null);
   }
 
-  // Listar clientes ordenados + seus animais
+  /**
+   * Lista todos os clientes em ordem alfabética,
+   * juntamente com os animais de cada cliente.
+   */
   public void listarOrdenado(ArrayList<Animal> animais) {
 
     if (lista.isEmpty()) {
@@ -57,16 +72,19 @@ public class ClienteService {
       return;
     }
 
+    // Ordenar lista por nome
     lista.sort(Comparator.comparing(Cliente::getNome));
 
+    // Percorrer todos os clientes
     for (Cliente c : lista) {
 
       System.out.println("\n-------------------------------------------");
-      System.out.println(c);
+      System.out.println(c); // chama toString do cliente
       System.out.println("Animais deste cliente:");
 
       boolean temAnimais = false;
 
+      // Percorre lista de animais e mostra os que pertencem a esse cliente
       for (Animal a : animais) {
         if (a.getDono().getCpf().equals(c.getCpf())) {
           System.out.println(" - " + a.getNome() +
@@ -83,9 +101,12 @@ public class ClienteService {
     System.out.println("-------------------------------------------");
   }
 
-  // Remover cliente
+  /**
+   * Remove um cliente do sistema (com confirmação).
+   */
   public void remover(String cpf, Scanner sc) {
 
+    // Busca cliente na lista
     Cliente c = buscarPorCpf(cpf);
 
     if (c == null) {
@@ -104,13 +125,16 @@ public class ClienteService {
     }
   }
 
-  // Listar todos os animais de um cliente
+  /**
+   * Lista todos os animais pertencentes a um cliente específico.
+   */
   public void listarAnimaisDoCliente(Cliente cliente, ArrayList<Animal> animais) {
 
     System.out.println("\n=== ANIMAIS DO CLIENTE: " + cliente.getNome() + " ===");
 
     boolean achou = false;
 
+    // Procura animais que tem o CPF do dono igual ao CPF do cliente
     for (Animal a : animais) {
       if (a.getDono().getCpf().equals(cliente.getCpf())) {
         System.out.println(a);
@@ -123,7 +147,9 @@ public class ClienteService {
     }
   }
 
-  // Acessar lista
+  /**
+   * Retorna a lista completa de clientes.
+   */
   public ArrayList<Cliente> getLista() {
     return lista;
   }
