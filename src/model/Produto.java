@@ -1,13 +1,28 @@
 package model;
 
+/**
+ * Classe Produto — herda de Item.
+ * Representa um produto físico vendido no PetShop,
+ * contendo nome, preço e quantidade em estoque.
+ */
 public class Produto extends Item {
+
+  // Quantidade disponível do produto em estoque
   private final int estoque;
 
+  /**
+   * Construtor do Produto.
+   * Recebe nome e preço (Item) + estoque específico do produto.
+   */
   public Produto(String nome, double preco, int estoque) {
-    super(nome, preco);
+    super(nome, preco); // chama construtor da classe Item
     this.estoque = estoque;
   }
 
+  /**
+   * Representação textual do produto,
+   * adicionando o estoque ao toString da classe Item.
+   */
   @Override
   public String toString() {
     return super.toString() + " | Estoque: " + estoque;
