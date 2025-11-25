@@ -6,6 +6,10 @@ import java.util.Scanner;
 import model.Cliente;
 import model.Compra;
 import model.FormaPagamento;
+import model.Credito;
+import model.Debito;
+import model.Dinheiro;
+import model.Pix;
 import model.Produto;
 
 public class CompraService {
@@ -28,10 +32,9 @@ public class CompraService {
     }
 
     System.out.print("Escolha o cliente: ");
-    int clienteIndex = sc.nextInt() - 1; // converte para índice
+    int clienteIndex = sc.nextInt() - 1;
     sc.nextLine();
 
-    // Validação do cliente escolhido
     if (clienteIndex < 0 || clienteIndex >= clientes.size()) {
       System.out.println("Cliente inválido!");
       return;
@@ -49,7 +52,6 @@ public class CompraService {
     int prodIndex = sc.nextInt() - 1;
     sc.nextLine();
 
-    // Valida o produto escolhido
     if (prodIndex < 0 || prodIndex >= produtos.size()) {
       System.out.println("Produto inválido!");
       return;
@@ -60,24 +62,29 @@ public class CompraService {
     // --- ESCOLHA DA FORMA DE PAGAMENTO ---
     System.out.println("\nFormas de Pagamento:");
     System.out.println("1 - Dinheiro");
-    System.out.println("2 - Cartão");
-    System.out.println("3 - Pix");
+    System.out.println("2 - Crédito");
+    System.out.println("3 - Débito");
+    System.out.println("4 - Pix");
     System.out.print("Escolha: ");
     int forma = sc.nextInt();
     sc.nextLine();
 
     FormaPagamento pagamento;
 
-    // Conversão numérica → ENUM
     switch (forma) {
-      case 1 -> pagamento = FormaPagamento.DINHEIRO;
-      case 2 -> pagamento = FormaPagamento.CARTAO;
-      case 3 -> pagamento = FormaPagamento.PIX;
+      case 1 -> pagamento = new Dinheiro();
+      case 2 -> pagamento = new Credito();
+      case 3 -> pagamento = new Debito();
+      case 4 -> pagamento = new Pix();
       default -> {
         System.out.println("Forma inválida!");
         return;
       }
     }
+
+    // Calcula o valor total
+    double valorBruto = produto.getPreco();
+    double valorTotal = pagamento.calcularPagamento(valorBruto);
 
     // Cria a compra com cliente, produto e forma de pagamento
     Compra compra = new Compra(cliente, produto, pagamento);
@@ -85,7 +92,9 @@ public class CompraService {
     // Armazena a compra na lista geral
     compras.add(compra);
 
-    System.out.println("\nCOMPRA REGISTRADA COM SUCESSO!");
+    System.out.println("\n=== COMPRA REGISTRADA COM SUCESSO! ===");
+    System.out.println("Valor original: R$ " + String.format("%.2f", valorBruto));
+    System.out.println("Valor total: R$ " + String.format("%.2f", valorTotal));
     System.out.println(compra);
   }
 
