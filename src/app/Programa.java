@@ -35,20 +35,23 @@ public class Programa {
 
       // Loop principal (menu)
       do {
-        System.out.println("\n============== PETSHOP ==============\n");
-        System.out.println("1 | Cadastrar Cliente");
-        System.out.println("2 | Cadastrar Animal ");
-        System.out.println("3 | Listar Clientes (com Animais)");
-        System.out.println("4 | Listar Animais");
-        System.out.println("5 | Remover Cliente");
-        System.out.println("6 | Buscar Animal por Nome");
-        System.out.println("7 | Buscar Cliente (Nome ou CPF)");
-        System.out.println("8 | Realizar Compra");
-        System.out.println("9 | Listar Compras");
-        System.out.println("10 | Listar Animais de um Cliente");
-        System.out.println("11 | Sair\n");
-        System.out.println("=====================================");
-        System.out.print("\n| Opção: ");
+          System.out.println("\n╔════════════════════════════════════╗");
+          System.out.println("║             PETSHOP                ║");
+          System.out.println("╠════════════════════════════════════╣");
+          System.out.println("║  1  ▸  Cadastrar Cliente           ║");
+          System.out.println("║  2  ▸  Cadastrar Animal            ║");
+          System.out.println("║  3  ▸  Listar Clientes c/ Animais  ║");
+          System.out.println("║  4  ▸  Listar Animais              ║");
+          System.out.println("║  5  ▸  Remover Cliente             ║");
+          System.out.println("║  6  ▸  Buscar Animal por Nome      ║");
+          System.out.println("║  7  ▸  Buscar Cliente (Nome/CPF)   ║");
+          System.out.println("║  8  ▸  Realizar Compra             ║");
+          System.out.println("║  9  ▸  Listar Compras              ║");
+          System.out.println("║ 10 ▸  Listar Animais de Cliente    ║");
+          System.out.println("║ 11 ▸  Serviços Pet                 ║");
+          System.out.println("║ 12 ▸  Sair                         ║");
+          System.out.println("╚════════════════════════════════════╝");
+          System.out.print("\n▶ Opção: ");
 
         // Lendo a opção
         opc = sc.nextInt();
@@ -136,9 +139,10 @@ public class Programa {
               System.out.println("Cliente não encontrado.");
             }
           }
-
+          // Listar serviços 
+          case 11 -> System.out.println("Em desenvolvimento...");
           // Sair do programa
-          case 11 -> System.out.println("Saindo...");
+          case 12 -> System.out.println("Saindo...");
 
           // Opção inválida
           default -> System.out.println("Opção inválida.");
