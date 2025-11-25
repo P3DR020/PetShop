@@ -199,6 +199,12 @@ public class CompraService {
             break;
           }
 
+          if (carrinho.getAnimal() != null) {
+            for (var itemServ : carrinho.getServicos()) {
+              carrinho.getAnimal().adicionarServico(itemServ.getServico());
+            }
+          }
+
           Compra compra = new Compra(carrinho, pagamento);
           compras.add(compra);
 
