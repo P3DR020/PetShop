@@ -97,6 +97,8 @@ public class CompraService {
       System.out.println("5 - Ver carrinho");
       System.out.println("6 - Finalizar compra");
       System.out.println("7 - Cancelar compra");
+      System.out.println("8 - Selecionar / Trocar Animal");
+
       System.out.print("Escolha: ");
       opc = sc.nextInt();
       sc.nextLine();
@@ -177,6 +179,12 @@ public class CompraService {
         case 5 -> System.out.println(carrinho);
 
         case 6 -> {
+          // VERIFICAÇÃO SE O CARRINHO ESTÁ VAZIO
+          if (carrinho.getProdutos().isEmpty() && carrinho.getServicos().isEmpty()) {
+            System.out.println("\n⚠ O carrinho está vazio!");
+            System.out.println("Adicione pelo menos 1 produto ou serviço antes de finalizar.");
+            break;
+          }
           System.out.println("\nFormas de Pagamento:");
           System.out.println("1 - Dinheiro");
           System.out.println("2 - Crédito");
@@ -217,6 +225,40 @@ public class CompraService {
           System.out.println("Compra cancelada.");
           return;
         }
+
+        case 8 -> {
+          // listar animais do cliente
+          ArrayList<Animal> animaisDoCliente = new ArrayList<>();
+          for (Animal a : animais) {
+            if (a.getDono().equals(cliente)) {
+              animaisDoCliente.add(a);
+            }
+          }
+
+          if (animaisDoCliente.isEmpty()) {
+            System.out.println("⚠ Este cliente não possui animais.");
+            break;
+          }
+
+          System.out.println("\nAnimais disponíveis:");
+          for (int i = 0; i < animaisDoCliente.size(); i++) {
+            System.out.println((i + 1) + " - " + animaisDoCliente.get(i).getNome());
+          }
+
+          System.out.print("Escolha o animal: ");
+          int idxAni = sc.nextInt() - 1;
+          sc.nextLine();
+
+          if (idxAni < 0 || idxAni >= animaisDoCliente.size()) {
+            System.out.println("Animal inválido!");
+            break;
+          }
+
+          carrinho.setAnimal(animaisDoCliente.get(idxAni));
+
+          System.out.println("Animal selecionado: " + carrinho.getAnimal().getNome());
+        }
+
       }
 
     } while (opc != 7);

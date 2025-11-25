@@ -192,11 +192,9 @@ public class Programa {
     // Clientes iniciais
     Cliente c1 = new Cliente("Maria", 30, "12345678900", "99999-1111", "Rua A");
     Cliente c2 = new Cliente("João", 22, "98765432100", "98888-2222", "Rua B");
-    Cliente c3 = new Cliente("Ana", 28, "11122233344", "97777-3333", "Rua C");
 
     cs.getLista().add(c1);
     cs.getLista().add(c2);
-    cs.getLista().add(c3);
 
     // Animais iniciais
     as.getLista().add(new Cachorro("Rex", 2018, "Macho", "Pastor Alemão", c1));
