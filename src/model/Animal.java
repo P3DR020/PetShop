@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 /**
  * Classe Animal — Superclasse para Cachorro e Gato.
  * Armazena informações básicas de qualquer animal do PetShop.
@@ -18,6 +20,8 @@ public class Animal {
   // Cliente que é o dono deste animal
   protected Cliente dono;
 
+  private final ArrayList<Servico> servicos = new ArrayList<>();
+
   /**
    * Construtor que cria um animal com todas as informações essenciais.
    */
@@ -26,6 +30,28 @@ public class Animal {
     this.anoNascimento = anoNascimento;
     this.sexo = sexo;
     this.dono = dono;
+  }
+
+  // ----------------------------------------------------------
+  /**
+   * Adicionar um serviço (Banho, tosa, vacina etc) ao animal.
+   */
+
+  public void adicionarServico(Servico servico) {
+    servicos.add(servico);
+  }
+
+  public ArrayList<Servico> getServicos() {
+    return servicos;
+  }
+
+  public double calcularTotalServicos() {
+    double total = 0.0;
+    for (Servico s : servicos) {
+      total += s.getPreco();
+    }
+    return total;
+
   }
 
   /**
