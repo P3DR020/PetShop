@@ -110,8 +110,6 @@ public class Programa {
                 System.out.println("Cliente não encontrado.");
             }
           }
-
-          // 🔥 NOVO CARRINHO COMPLETO
           case 8 ->
             compraService.abrirCarrinho(
                 sc,
@@ -152,8 +150,13 @@ public class Programa {
             }
           }
 
-          case 12 ->
-            System.out.println("Saindo...");
+          case 12 -> {
+            System.out.println("\n╔══════════════════════════════╗");
+            System.out.println("║       SAINDO DO SISTEMA      ║");
+            System.out.println("╚══════════════════════════════╝");
+            System.out.println("Obrigado por usar o PetShop!");
+            System.out.println("Volte sempre!");
+          }
 
           default ->
             System.out.println("Opção inválida.");
