@@ -110,6 +110,7 @@ public class Programa {
                 System.out.println("Cliente não encontrado.");
             }
           }
+
           case 8 ->
             compraService.abrirCarrinho(
                 sc,
@@ -135,26 +136,17 @@ public class Programa {
 
           case 11 -> {
             System.out.println("\n=== SERVIÇOS DO ANIMAL ===");
-            System.out.println("1 - Aplicar Serviço no Animal");
-            System.out.println("2 - Listar Serviços do Animal");
+            System.out.println("Para adicionar serviços, utilize o CARRINHO (opção 8).");
+            System.out.println();
 
-            int serv = sc.nextInt();
-            sc.nextLine();
-
-            if (serv == 1) {
-              as.aplicarServico(sc);
-            } else if (serv == 2) {
-              as.listarServicosDoAnimal(sc);
-            } else {
-              System.out.println("Opção inválida.");
-            }
+            as.listarServicosDoAnimal(sc);
           }
 
           case 12 -> {
             System.out.println("\n╔══════════════════════════════╗");
             System.out.println("║       SAINDO DO SISTEMA      ║");
             System.out.println("╚══════════════════════════════╝");
-            System.out.println("Obrigado por usar o PetShop!");
+            System.out.println("Obrigado por usar o PetShop! 🐾");
             System.out.println("Volte sempre!");
           }
 
@@ -166,7 +158,7 @@ public class Programa {
     }
   }
 
-  // SERVIÇOS PET LISTA
+  // LISTA DE SERVIÇOS PADRÃO DO PETSHOP
   private static ArrayList<Servico> carregarServicosPet() {
 
     ArrayList<Servico> lista = new ArrayList<>();
@@ -174,17 +166,11 @@ public class Programa {
     lista.add(new Servico("Banho", 35));
     lista.add(new Servico("Tosa", 50));
     lista.add(new Servico("Vacina", 80));
-    lista.add(new Servico("Hidratação", 45));
-    lista.add(new Servico("Corte de Unhas", 20));
-    lista.add(new Servico("Limpeza de Ouvido", 30));
-    lista.add(new Servico("Desembolo de Pelo", 60));
-    lista.add(new Servico("Tratamento Anti-Pulgas", 70));
-    lista.add(new Servico("Escovação de Dentes", 25));
-    lista.add(new Servico("Banho Medicamentoso", 55));
 
     return lista;
   }
 
+  // DADOS PRÉ-CARREGADOS
   private static void cadastrarAutomatico(
       ClienteService cs,
       AnimalService as,

@@ -19,8 +19,12 @@ public class CompraService {
 
   private final ArrayList<Compra> compras = new ArrayList<>();
 
-  public void abrirCarrinho(Scanner sc, ArrayList<Cliente> clientes, ArrayList<Produto> produtos,
-      ArrayList<Animal> animais, ArrayList<Servico> servicosDisponiveis) {
+  public void abrirCarrinho(
+      Scanner sc,
+      ArrayList<Cliente> clientes,
+      ArrayList<Produto> produtos,
+      ArrayList<Animal> animais,
+      ArrayList<Servico> servicosDisponiveis) {
 
     System.out.println("\n=== INICIAR COMPRA (CARRINHO) ===");
 
@@ -41,31 +45,47 @@ public class CompraService {
 
     Cliente cliente = clientes.get(clienteIndex);
 
-    // === Escolher animal do cliente ===
+    // === VERIFICAR ANIMAIS DO CLIENTE (AGORA OPCIONAL) ===
     ArrayList<Animal> animaisCliente = new ArrayList<>();
 
     for (Animal a : animais)
       if (a.getDono().equals(cliente))
         animaisCliente.add(a);
 
-    if (animaisCliente.isEmpty()) {
-      System.out.println("Este cliente não possui animais!");
-      return;
-    }
+    Animal animalSelecionado = null;
 
-    System.out.println("\nAnimais desse cliente:");
-    for (int i = 0; i < animaisCliente.size(); i++) {
-      System.out.println((i + 1) + " - " + animaisCliente.get(i).getNome());
-    }
+    System.out.println("\nO cliente possui " + animaisCliente.size() + " animal(is).");
 
-    System.out.print("Escolha o animal: ");
-    int aniIndex = sc.nextInt() - 1;
+    System.out.println("\nDeseja selecionar um animal?");
+    System.out.println("1 - Sim");
+    System.out.println("2 - Não (continuar sem animal)");
+    System.out.print("Escolha: ");
+    int opcAnimal = sc.nextInt();
     sc.nextLine();
 
-    Animal animal = animaisCliente.get(aniIndex);
+    if (opcAnimal == 1 && !animaisCliente.isEmpty()) {
+
+      System.out.println("\nAnimais do cliente:");
+      for (int i = 0; i < animaisCliente.size(); i++) {
+        System.out.println((i + 1) + " - " + animaisCliente.get(i).getNome());
+      }
+
+      System.out.print("Escolha o animal: ");
+      int aniIndex = sc.nextInt() - 1;
+      sc.nextLine();
+
+      if (aniIndex >= 0 && aniIndex < animaisCliente.size()) {
+        animalSelecionado = animaisCliente.get(aniIndex);
+        System.out.println("Animal selecionado: " + animalSelecionado.getNome());
+      } else {
+        System.out.println("Animal inválido. Continuando sem animal.");
+      }
+    } else {
+      System.out.println("Continuando sem animal.");
+    }
 
     // === Criar carrinho ===
-    Carrinho carrinho = new Carrinho(cliente, animal);
+    Carrinho carrinho = new Carrinho(cliente, animalSelecionado);
 
     int opc;
     do {
@@ -84,7 +104,6 @@ public class CompraService {
       switch (opc) {
 
         case 1 -> {
-          // === ADICIONAR PRODUTO ===
           System.out.println("\nProdutos disponíveis:");
           for (int i = 0; i < produtos.size(); i++)
             System.out.println((i + 1) + " - " + produtos.get(i));
@@ -102,7 +121,11 @@ public class CompraService {
         }
 
         case 2 -> {
-          // === ADICIONAR SERVIÇO ===
+          if (carrinho.getAnimal() == null) {
+            System.out.println("⚠ Não é possível adicionar serviços sem escolher um animal!");
+            break;
+          }
+
           System.out.println("\nServiços disponíveis:");
           for (int i = 0; i < servicosDisponiveis.size(); i++)
             System.out.println((i + 1) + " - " + servicosDisponiveis.get(i));
@@ -116,7 +139,6 @@ public class CompraService {
         }
 
         case 3 -> {
-          // === REMOVER PRODUTO ===
           if (carrinho.getProdutos().isEmpty()) {
             System.out.println("Nenhum produto no carrinho.");
             break;
@@ -135,7 +157,6 @@ public class CompraService {
         }
 
         case 4 -> {
-          // === REMOVER SERVIÇO ===
           if (carrinho.getServicos().isEmpty()) {
             System.out.println("Nenhum serviço no carrinho.");
             break;
@@ -156,7 +177,6 @@ public class CompraService {
         case 5 -> System.out.println(carrinho);
 
         case 6 -> {
-          // === FINALIZAR COMPRA ===
           System.out.println("\nFormas de Pagamento:");
           System.out.println("1 - Dinheiro");
           System.out.println("2 - Crédito");
@@ -184,7 +204,6 @@ public class CompraService {
 
           System.out.println("\n=== COMPRA FINALIZADA ===");
           System.out.println(compra);
-
           return;
         }
 
@@ -192,7 +211,6 @@ public class CompraService {
           System.out.println("Compra cancelada.");
           return;
         }
-
       }
 
     } while (opc != 7);

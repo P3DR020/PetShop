@@ -5,13 +5,18 @@ import java.util.ArrayList;
 public class Carrinho {
 
   private Cliente cliente;
-  private Animal animal;
+  private Animal animal; // agora pode ser null
 
   private ArrayList<CarrinhoProduto> produtos = new ArrayList<>();
   private ArrayList<CarrinhoServico> servicos = new ArrayList<>();
 
   public Carrinho(Cliente cliente, Animal animal) {
     this.cliente = cliente;
+    this.animal = animal; // pode vir null
+  }
+
+  // PERMITIR SELECIONAR ANIMAL DEPOIS
+  public void setAnimal(Animal animal) {
     this.animal = animal;
   }
 
@@ -76,7 +81,11 @@ public class Carrinho {
     StringBuilder sb = new StringBuilder("\n===== CARRINHO =====\n");
 
     sb.append("Cliente: ").append(cliente.getNome()).append("\n");
-    sb.append("Animal: ").append(animal.getNome()).append("\n\n");
+
+    // ANIMAL OPCIONAL COM TERNÁRIO
+    sb.append("Animal: ")
+        .append(animal == null ? "Nenhum selecionado" : animal.getNome())
+        .append("\n\n");
 
     sb.append("Produtos:\n");
     if (produtos.isEmpty())
