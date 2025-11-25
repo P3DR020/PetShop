@@ -2,13 +2,12 @@ package service;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import model.Cliente;
 import model.Compra;
-import model.FormaPagamento;
 import model.Credito;
 import model.Debito;
 import model.Dinheiro;
+import model.FormaPagamento;
 import model.Pix;
 import model.Produto;
 

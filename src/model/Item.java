@@ -11,7 +11,7 @@ public class Item {
   private final String nome;
 
   // Preço do item
-  private final double preco;
+  protected  final double preco;
 
   /**
    * Construtor que inicializa nome e preço do item.
