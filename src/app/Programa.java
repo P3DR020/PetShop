@@ -139,7 +139,7 @@ public class Programa {
             }
           }
           // Listar serviços 
-          case 11 -> System.out.println("Em desenvolvimento...");
+          case 11 -> as.listar();
           // Sair do programa
           case 12 -> System.out.println("Saindo...");
 
@@ -147,7 +147,7 @@ public class Programa {
           default -> System.out.println("Opção inválida.");
         }
 
-      } while (opc != 11); // repete até o usuário escolher sair
+      } while (opc != 12); // repete até o usuário escolher sair
     }
   }
 
