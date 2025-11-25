@@ -1,8 +1,8 @@
 package app;
 
-// Importações necessárias
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import model.Cachorro;
 import model.Cliente;
 import model.Gato;
@@ -16,69 +16,61 @@ public class Programa {
 
   public static void main(String[] args) {
 
-    // Scanner dentro de try-with-resources → fecha automaticamente no final
     try (Scanner sc = new Scanner(System.in)) {
 
-      // Instância dos serviços principais do sistema
-      ClienteService cs = new ClienteService();   // gerencia clientes
-      AnimalService as = new AnimalService();     // gerencia animais
-      CompraService compraService = new CompraService(); // gerencia compras
+      ClienteService cs = new ClienteService();
+      AnimalService as = new AnimalService();
+      CompraService compraService = new CompraService();
 
-      // Lista onde os produtos do PetShop serão armazenados
       ArrayList<Produto> produtos = new ArrayList<>();
+      ArrayList<Servico> servicosPet = carregarServicosPet();
 
-      // Chamada do método que cadastra dados automáticos obrigatórios da P1
       cadastrarAutomatico(cs, as, produtos);
 
-      int opc; // variável que controla o menu
+      int opc;
 
-      // Loop principal (menu)
       do {
-          System.out.println("\n╔════════════════════════════════════╗");
-          System.out.println("║             PETSHOP                ║");
-          System.out.println("╠════════════════════════════════════╣");
-          System.out.println("║  1  ▸  Cadastrar Cliente           ║");
-          System.out.println("║  2  ▸  Cadastrar Animal            ║");
-          System.out.println("║  3  ▸  Listar Clientes c/ Animais  ║");
-          System.out.println("║  4  ▸  Listar Animais              ║");
-          System.out.println("║  5  ▸  Remover Cliente             ║");
-          System.out.println("║  6  ▸  Buscar Animal por Nome      ║");
-          System.out.println("║  7  ▸  Buscar Cliente (Nome/CPF)   ║");
-          System.out.println("║  8  ▸  Realizar Compra             ║");
-          System.out.println("║  9  ▸  Listar Compras              ║");
-          System.out.println("║ 10 ▸  Listar Animais de Cliente    ║");
-          System.out.println("║ 11 ▸  Serviços Pet                 ║");
-          System.out.println("║ 12 ▸  Sair                         ║");
-          System.out.println("╚════════════════════════════════════╝");
-          System.out.print("\n▶ Opção: ");
+        System.out.println("\n╔════════════════════════════════════╗");
+        System.out.println("║             PETSHOP                ║");
+        System.out.println("╠════════════════════════════════════╣");
+        System.out.println("║  1  -  Cadastrar Cliente           ║");
+        System.out.println("║  2  -  Cadastrar Animal            ║");
+        System.out.println("║  3  -  Listar Clientes c/ Animais  ║");
+        System.out.println("║  4  -  Listar Animais              ║");
+        System.out.println("║  5  -  Remover Cliente             ║");
+        System.out.println("║  6  -  Buscar Animal por Nome      ║");
+        System.out.println("║  7  -  Buscar Cliente (Nome/CPF)   ║");
+        System.out.println("║  8  -  Abrir Carrinho (Nova Compra)║");
+        System.out.println("║  9  -  Listar Compras              ║");
+        System.out.println("║ 10  -  Listar Animais de Cliente   ║");
+        System.out.println("║ 11  -  Serviços do Animal          ║");
+        System.out.println("║ 12  -  Sair                        ║");
+        System.out.println("╚════════════════════════════════════╝");
+        System.out.print("\n▶ Opção: ");
 
-        // Lendo a opção
         opc = sc.nextInt();
-        sc.nextLine(); // consome ENTER
+        sc.nextLine();
 
-        // Processamento da opção escolhida
         switch (opc) {
 
-          // Cadastro de cliente
-          case 1 -> cs.cadastrar(sc);
+          case 1 ->
+            cs.cadastrar(sc);
 
-          // Cadastro de animal (cliente deve existir)
-          case 2 -> as.cadastrar(sc, cs.getLista());
+          case 2 ->
+            as.cadastrar(sc, cs.getLista());
 
-          // Lista clientes ordenados + animais
-          case 3 -> cs.listarOrdenado(as.getLista());
+          case 3 ->
+            cs.listarOrdenado(as.getLista());
 
-          // Lista todos os animais cadastrados
-          case 4 -> as.listar();
+          case 4 ->
+            as.listar();
 
-          // Remoção de cliente pelo CPF
           case 5 -> {
             System.out.print("CPF do cliente: ");
             String cpf = sc.nextLine();
             cs.remover(cpf, sc);
           }
 
-          // Busca animal por nome
           case 6 -> {
             System.out.print("Nome do animal: ");
             String nome = sc.nextLine();
@@ -90,7 +82,6 @@ public class Programa {
               System.out.println("Animal não encontrado.");
           }
 
-          // Busca cliente por nome ou CPF
           case 7 -> {
             System.out.println("Buscar Cliente por:");
             System.out.println("1 | Nome");
@@ -120,13 +111,18 @@ public class Programa {
             }
           }
 
-          // Realizar compra (produto + cliente escolhido)
-          case 8 -> compraService.realizarCompra(sc, cs.getLista(), produtos);
+          // 🔥 NOVO CARRINHO COMPLETO
+          case 8 ->
+            compraService.abrirCarrinho(
+                sc,
+                cs.getLista(),
+                produtos,
+                as.getLista(),
+                servicosPet);
 
-          // Listar todas as compras registradas
-          case 9 -> compraService.listarCompras();
+          case 9 ->
+            compraService.listarCompras();
 
-          // Lista animais pertencentes a um cliente específico
           case 10 -> {
             System.out.print("Digite o CPF do cliente: ");
             String cpf = sc.nextLine();
@@ -138,44 +134,73 @@ public class Programa {
               System.out.println("Cliente não encontrado.");
             }
           }
-          // Listar serviços 
-          case 11 -> as.listar();
-          // Sair do programa
-          case 12 -> System.out.println("Saindo...");
 
-          // Opção inválida
-          default -> System.out.println("Opção inválida.");
+          case 11 -> {
+            System.out.println("\n=== SERVIÇOS DO ANIMAL ===");
+            System.out.println("1 - Aplicar Serviço no Animal");
+            System.out.println("2 - Listar Serviços do Animal");
+
+            int serv = sc.nextInt();
+            sc.nextLine();
+
+            if (serv == 1) {
+              as.aplicarServico(sc);
+            } else if (serv == 2) {
+              as.listarServicosDoAnimal(sc);
+            } else {
+              System.out.println("Opção inválida.");
+            }
+          }
+
+          case 12 ->
+            System.out.println("Saindo...");
+
+          default ->
+            System.out.println("Opção inválida.");
         }
 
-      } while (opc != 12); // repete até o usuário escolher sair
+      } while (opc != 12);
     }
   }
 
-  // Método que cadastra dados automaticamente (exigência da P1)
-  private static void cadastrarAutomatico(ClienteService cs, AnimalService as, ArrayList<Produto> produtos) {
+  // SERVIÇOS PET LISTA
+  private static ArrayList<Servico> carregarServicosPet() {
 
-    // === CLIENTES PADRÃO ===
+    ArrayList<Servico> lista = new ArrayList<>();
+
+    lista.add(new Servico("Banho", 35));
+    lista.add(new Servico("Tosa", 50));
+    lista.add(new Servico("Vacina", 80));
+    lista.add(new Servico("Hidratação", 45));
+    lista.add(new Servico("Corte de Unhas", 20));
+    lista.add(new Servico("Limpeza de Ouvido", 30));
+    lista.add(new Servico("Desembolo de Pelo", 60));
+    lista.add(new Servico("Tratamento Anti-Pulgas", 70));
+    lista.add(new Servico("Escovação de Dentes", 25));
+    lista.add(new Servico("Banho Medicamentoso", 55));
+
+    return lista;
+  }
+
+  private static void cadastrarAutomatico(
+      ClienteService cs,
+      AnimalService as,
+      ArrayList<Produto> produtos) {
+
     Cliente c1 = new Cliente("Maria", 30, "12345678900", "99999-1111", "Rua A");
     Cliente c2 = new Cliente("João", 22, "98765432100", "98888-2222", "Rua B");
 
-    // Adicionando clientes na lista
     cs.getLista().add(c1);
     cs.getLista().add(c2);
 
-    // === ANIMAIS PADRÃO (com vinculação ao dono) ===
     as.getLista().add(new Cachorro("Rex", 2018, "Macho", "Pastor Alemão", c1));
     as.getLista().add(new Gato("Luna", 2020, "Fêmea", "Cinza", c2));
     as.getLista().add(new Cachorro("Bob", 2017, "Macho", "Poodle", c1));
 
-    // Serviço padrão (apenas demonstração)
-    Servico servicoPadrao = new Servico("Banho e Tosa", 89.90);
-    System.out.println("Serviço carregado: " + servicoPadrao);
-
-    // === PRODUTOS PADRÃO ===
-    produtos.add(new Produto("Ração Premium", 79.90, 20)); // obrigatório
+    produtos.add(new Produto("Ração Premium", 79.90, 20));
     produtos.add(new Produto("Shampoo Pet", 25.00, 30));
     produtos.add(new Produto("Osso de Brinquedo", 19.90, 50));
 
-    System.out.println("Produtos carregados automaticamente!");
+    System.out.println("Dados carregados automaticamente!");
   }
 }

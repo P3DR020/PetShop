@@ -8,10 +8,10 @@ package model;
 public class Item {
 
   // Nome do item (ex: "Ração Premium", "Banho e Tosa")
-  private final String nome;
+  protected final String nome;
 
   // Preço do item
-  protected  final double preco;
+  protected final double preco;
 
   /**
    * Construtor que inicializa nome e preço do item.

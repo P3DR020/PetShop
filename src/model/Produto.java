@@ -31,4 +31,8 @@ public class Produto extends Item {
   public double getPreco() {
     return preco;
   }
+
+  public String getNome() {
+    return nome;
+  }
 }
