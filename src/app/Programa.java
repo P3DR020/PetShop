@@ -3,7 +3,6 @@ package app;
 // Importações necessárias
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import model.Cachorro;
 import model.Cliente;
 import model.Gato;
@@ -169,7 +168,7 @@ public class Programa {
     as.getLista().add(new Cachorro("Bob", 2017, "Macho", "Poodle", c1));
 
     // Serviço padrão (apenas demonstração)
-    Servico servicoPadrao = new Servico("Banho e Tosa");
+    Servico servicoPadrao = new Servico("Banho e Tosa", 89.90);
     System.out.println("Serviço carregado: " + servicoPadrao);
 
     // === PRODUTOS PADRÃO ===

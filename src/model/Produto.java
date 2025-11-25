@@ -19,10 +19,6 @@ public class Produto extends Item {
     this.estoque = estoque;
   }
 
-  /**
-   * Representação textual do produto,
-   * adicionando o estoque ao toString da classe Item.
-   */
   @Override
   public String toString() {
     return super.toString() + " | Estoque: " + estoque;
