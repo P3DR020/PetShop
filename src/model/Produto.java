@@ -23,4 +23,12 @@ public class Produto extends Item {
   public String toString() {
     return super.toString() + " | Estoque: " + estoque;
   }
+
+  public int getEstoque() {
+    return estoque;
+  }
+
+  public double getPreco() {
+    return preco;
+  }
 }
