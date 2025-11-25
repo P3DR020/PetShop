@@ -2,11 +2,11 @@ package service;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import model.Animal;
 import model.Cachorro;
 import model.Cliente;
 import model.Gato;
+import model.Servico;
 
 public class AnimalService {
 
@@ -104,4 +104,91 @@ public class AnimalService {
   public ArrayList<Animal> getLista() {
     return lista;
   }
+
+  public void aplicarServico(Scanner sc) {
+
+    if (lista.isEmpty()) {
+      System.out.println("Nenhum animal cadastrado!");
+      return;
+    }
+
+    System.out.println("\n=== APLICAR SERVIÇO AO ANIMAL ===");
+
+    // Mostrar animais
+    for (int i = 0; i < lista.size(); i++) {
+      System.out.println((i + 1) + " - " + lista.get(i).getNome());
+    }
+
+    System.out.print("Escolha o animal: ");
+    int opc = sc.nextInt() - 1;
+    sc.nextLine();
+
+    if (opc < 0 || opc >= lista.size()) {
+      System.out.println("Animal inválido.");
+      return;
+    }
+
+    Animal animal = lista.get(opc);
+
+    // Menu de serviços
+    System.out.println("\nServiços disponíveis:");
+    System.out.println("1 - Banho (R$ 35)");
+    System.out.println("2 - Tosa (R$ 50)");
+    System.out.println("3 - Vacina (R$ 80)");
+    System.out.print("Escolha: ");
+    int serv = sc.nextInt();
+    sc.nextLine();
+
+    Servico servicoEscolhido;
+
+    switch (serv) {
+      case 1 -> servicoEscolhido = new Servico("Banho", 35);
+      case 2 -> servicoEscolhido = new Servico("Tosa", 50);
+      case 3 -> servicoEscolhido = new Servico("Vacina", 80);
+      default -> {
+        System.out.println("Serviço inválido.");
+        return;
+      }
+    }
+
+    animal.adicionarServico(servicoEscolhido);
+
+    System.out.println("Serviço aplicado com sucesso ao animal: " + animal.getNome());
+  }
+
+  public void listarServicosDoAnimal(Scanner sc) {
+
+    if (lista.isEmpty()) {
+      System.out.println("Nenhum animal cadastrado!");
+      return;
+    }
+
+    System.out.println("\n=== SERVIÇOS DO ANIMAL ===");
+
+    for (int i = 0; i < lista.size(); i++) {
+      System.out.println((i + 1) + " - " + lista.get(i).getNome());
+    }
+
+    System.out.print("Escolha o animal: ");
+    int opc = sc.nextInt() - 1;
+    sc.nextLine();
+
+    if (opc < 0 || opc >= lista.size()) {
+      System.out.println("Animal inválido.");
+      return;
+    }
+
+    Animal animal = lista.get(opc);
+
+    if (animal.getServicos().isEmpty()) {
+      System.out.println("Nenhum serviço aplicado ainda.");
+      return;
+    }
+
+    System.out.println("\nServiços realizados:");
+    animal.getServicos().forEach(s -> System.out.println("- " + s.getTipo() + " | R$ " + s.getPreco()));
+
+    System.out.println("TOTAL: R$ " + animal.calcularTotalServicos());
+  }
+
 }
