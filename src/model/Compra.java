@@ -1,58 +1,33 @@
 package model;
 
-/**
- * Classe Compra
- * Representa uma compra feita no PetShop, contendo:
- * - o cliente que comprou
- * - o produto escolhido
- * - a forma de pagamento utilizada
- */
 public class Compra {
+    private Cliente cliente;
+    private Produto produto;
+    private FormaPagamento pagamento;
+    private double valorBruto;
+    private double valorTotal;
 
-  // Cliente que realizou a compra
-  private final Cliente cliente;
+    public Compra(Cliente cliente, Produto produto, FormaPagamento pagamento) {
+        this.cliente = cliente;
+        this.produto = produto;
+        this.pagamento = pagamento;
+        this.valorBruto = produto.getPreco();
+        this.valorTotal = pagamento.calcularPagamento(this.valorBruto);
+    }
 
-  // Produto adquirido
-  private final Produto produto;
+    public Cliente getCliente() { return cliente; }
+    public Produto getProduto() { return produto; }
+    public FormaPagamento getPagamento() { return pagamento; }
+    public double getValorBruto() { return valorBruto; }
+    public double getValorTotal() { return valorTotal; }
 
-  // Tipo de pagamento (enum: DINHEIRO, CARTAO ou PIX)
-  private final FormaPagamento pagamento;
-
-  /**
-   * Construtor da Compra.
-   * Inicializa cliente, produto e forma de pagamento.
-   */
-  public Compra(Cliente cliente, Produto produto, FormaPagamento pagamento) {
-    this.cliente = cliente;
-    this.produto = produto;
-    this.pagamento = pagamento;
-  }
-
-  // Getters
-  public Cliente getCliente() {
-    return cliente;
-  }
-
-  public Produto getProduto() {
-    return produto;
-  }
-
-  public FormaPagamento getPagamento() {
-    return pagamento;
-  }
-
-  /**
-   * Representação textual da compra.
-   * Usa texto multilinha (""" """) para organizar a visualização.
-   */
-  @Override
-  public String toString() {
-    return """
-        COMPRA:
-        Cliente: %s
-        Produto: %s
-        Pagamento: %s
-        --------------------------------------"""
-        .formatted(cliente.getNome(), produto, pagamento);
-  }
+    @Override
+    public String toString() {
+        // usa produto.toString() caso não exista getNome()
+        return String.format("Cliente: %s \n| Produto: %s \n| Valor: R$ %.2f \n| Total (com taxa): R$ %.2f",
+                cliente.getNome(),
+                produto.toString(),
+                valorBruto,
+                valorTotal);
+    }
 }

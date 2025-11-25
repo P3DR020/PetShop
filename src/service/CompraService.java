@@ -94,7 +94,6 @@ public class CompraService {
     System.out.println("\n=== COMPRA REGISTRADA COM SUCESSO! ===");
     System.out.println("Valor original: R$ " + String.format("%.2f", valorBruto));
     System.out.println("Valor total: R$ " + String.format("%.2f", valorTotal));
-    System.out.println(compra);
   }
 
   /**
@@ -107,13 +106,11 @@ public class CompraService {
     }
 
     System.out.println("\n=== LISTA DE COMPRAS ===");
-    compras.forEach(System.out::println);
-  }
-
-  /**
-   * Retorna a lista completa de compras realizadas.
-   */
-  public ArrayList<Compra> getCompras() {
-    return compras;
+    for (Compra c : compras) {
+      System.out.println(c); // usa o toString da classe Compra
+      // ou, se preferir formato custom:
+      // System.out.printf("Cliente: %s | Produto: %s | Total: R$ %.2f%n",
+      //     c.getCliente().getNome(), c.getProduto().toString(), c.getValorTotal());
+    }
   }
 }
